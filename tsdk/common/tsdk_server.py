@@ -122,6 +122,7 @@ LogicsSchema = {
 SchedulerSchema = {
     SchedulerSchemaParams.Algorithm: _pd.Series(dtype='str'),
     SchedulerSchemaParams.Enabled: _pd.Series(dtype='bool'),
+    SchedulerSchemaParams.ScheduleType: _pd.Series(dtype='str'),
     SchedulerSchemaParams.Periodicity: _pd.Series(dtype='int'),
     SchedulerSchemaParams.RunTime: _pd.Series(dtype='str'),
     SchedulerSchemaParams.StartTime: _pd.Series(dtype='str'),
@@ -209,12 +210,34 @@ class TsdkServer(_SQLServer):
         with open(conf, 'w') as f:
             _json.dump(conf_json, f, indent=4)
 
-    def setup_database(self):
-        db = 'tsdk'
-        if self.dbconfig.database != 'tsdk':
-            db = self.dbconfig.database
-            self.dbconfig.database = 'tsdk'
+    def export_system_tables(self, excel_file):
+        err = None
+        with _pd.ExcelWriter(excel_file, engine='xlsxwriter') as writer:
+            for _sheet_name in [SystemSchemas.Logics,
+                                SystemSchemas.Scheduler,
+                                SystemSchemas.ExcludeNEs]:
+                try:
+                    df, _ = self.sql_to_dataframe("Select * FROM " + _sheet_name)
+                    df.to_excel(writer, sheet_name=_sheet_name, index=False)
+                except Exception as e:
+                    err = e
+        return err
 
+    def import_system_tables(self, excel_file):
+        err = None
+        f = _pd.ExcelFile(excel_file)
+        for sheet in f.sheet_names:
+            try:
+                if sheet in [SystemSchemas.Logics,
+                             SystemSchemas.Scheduler,
+                             SystemSchemas.ExcludeNEs]:
+                    df = f.parse(sheet)
+                    self.dataframe_to_db(df, sheet, 'replace')
+            except Exception as e:
+                err = e
+        return err
+
+    def setup_database(self):
         self.execute_sql("DROP TABLE IF EXISTS " + SystemSchemas.Logics)
         df = _pd.DataFrame(LogicsSchema)
         self.dataframe_to_db(df, SystemSchemas.Logics)
@@ -234,5 +257,3 @@ class TsdkServer(_SQLServer):
         self.execute_sql("DROP TABLE IF EXISTS " + SystemSchemas.ExcludeNEs)
         df = _pd.DataFrame(ExcludeNEsSchema)
         self.dataframe_to_db(df, SystemSchemas.ExcludeNEs)
-
-        self.dbconfig.database = db
