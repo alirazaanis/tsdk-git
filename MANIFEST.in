@@ -1,0 +1,4 @@
+include conf.json
+include main.py
+include requirements.txt
+include setup.py

@@ -45,24 +45,24 @@ class SQLServer(object):
     def ConnectionString(self):
         return self._connectionString
 
-    def sql_to_dataframe(self, sql: str) -> (_pd.DataFrame, Exception):
-        _Query_log.write(sql)
-        df = _pd.DataFrame()
-        err = None
-        try:
-            if self._connectionString.dbconfig.driver == _OdbcDrivers.SQLite:
-                self._connection = \
-                    _sqlite3.connect(self._connectionString.dbconfig.database)
-            else:
-                self._connection = _po.connect(self._connectionString.get_odbc)
-            df = _pd.read_sql(sql, con=self._connection)
-            self._connection.close()
-        except Exception as e:
-            _Error_log.write(e)
-            err = e
-        return df, err
+    # def sql_to_dataframe(self, sql: str) -> (_pd.DataFrame, Exception):
+    #    _Query_log.write(sql)
+    #    df = _pd.DataFrame()
+    #    err = None
+    #    try:
+    #        if self._connectionString.dbconfig.driver == _OdbcDrivers.SQLite:
+    #            self._connection = \
+    #                _sqlite3.connect(self._connectionString.dbconfig.database)
+    #        else:
+    #            self._connection = _po.connect(self._connectionString.get_odbc)
+    #        df = _pd.read_sql(sql, con=self._connection)
+    #        self._connection.close()
+    #    except Exception as e:
+    #        _Error_log.write(e)
+    #        err = e
+    #    return df, err
 
-    def sql_to_dataframe_2(self, sql: str) -> (_pd.DataFrame, Exception):
+    def sql_to_dataframe(self, sql: str) -> (_pd.DataFrame, Exception):
         _Query_log.write(sql)
         err = None
         df = _pd.DataFrame()

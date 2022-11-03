@@ -159,7 +159,7 @@ if __name__ == '__main__':
             'end_time': ['', '2023-05-17 00:00:00'],
             'module': ['c:/users/ali/desktop/test_desktop', 'c:/users/ali/desktop/test_desktop2'],
             'function': ['testx', 'testx2'],
-            'argument': ['{}', ''],
+            'argument': ['{}', '{}'],
             'category': ['test', 'test'],
             'developer': ['test', 'test'],
             'id': ['job1', 'job2']}

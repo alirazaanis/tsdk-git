@@ -28,3 +28,17 @@
 /build/lib/tsdk/common/tsdk_server.py
 /twine_help
 /.idea/vcs.xml
+/build/lib/tsdk/actions/__init__.py
+/build/lib/tsdk/implementation/__init__.py
+/build/lib/tsdk/logics/system/__init__.py
+/build/lib/tsdk/actions/action1.py
+/dist/tsdk-git-5.3.tar.gz
+/dist/tsdk_git-5.3-py3-none-any.whl
+/conf_test.json
+/dist/tsdk-git-5.3.2.tar.gz
+/tsdk_all.log
+/tsdk_error.log
+/dist/tsdk_git-5.3.2-py3-none-any.whl
+/tsdk_log.log
+/tsdk_query.log
+/tsdk_scheduler.log

@@ -43,9 +43,9 @@ def get_odbc_driver(driver: str) -> OdbcDrivers:
     Returns:
         OdbcDrivers: ODBC driver from OdbcDrivers Enum
     """
-    if driver is "SQLite3 ODBC Driver":
+    if driver == "SQLite3 ODBC Driver":
         return OdbcDrivers.SQLite
-    elif driver is "ODBC Driver 17 for SQL Server":
+    elif driver == "ODBC Driver 17 for SQL Server":
         return OdbcDrivers.MicrosoftSQLServer
     else:
         return OdbcDrivers.MicrosoftSQLServer

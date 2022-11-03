@@ -49,7 +49,7 @@ def nr_basic_audit_v2():
             sql = "SELECT " \
                   "'" + row[_Lsp.LogicName] + "' AS " + _Llsp.LogicName + ", " + \
                   "'" + row[_Lsp.Family] + "' AS " + _Llsp.Family + ", " + \
-                  "'" + row[_Lsp.Database] + "' AS " + _Llsp.Database + ", " + \
+                  "'" + row[_Lsp.Database] + "' AS '" + _Llsp.Database + "', " + \
                   "'" + row[_Lsp.LayerTechnology] + "' AS " + _Llsp.LayerTechnology + ", " + \
                   row[_Lsp.MOKey] + " AS " + _Llsp.MOKey + ", " + \
                   "'" + row[_Lsp.Parameter] + "' AS " + _Llsp.Parameter + ", " + \
